@@ -61,4 +61,100 @@ adapter.onTouchExpand = function(callback) {
   });
 };
 
+// 封装上滑手势
+adapter.onTouchUp = function(callback) {
+  let startX = 0;
+  let startY = 0;
+  adapter.onTouchStart((e) => {
+    if (e.touches.length === 1) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }
+  });
+  adapter.onTouchEnd((e) => {
+    if (e.changedTouches.length === 1) {
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      const dx = endX - startX;
+      const dy = endY - startY;
+      // 垂直移动距离大于水平移动距离，且向上移动超过50px
+      if (Math.abs(dy) > Math.abs(dx) && dy < -50) {
+        callback && callback(e);
+      }
+    }
+  });
+};
+
+// 封装下滑手势
+adapter.onTouchDown = function(callback) {
+  let startX = 0;
+  let startY = 0;
+  adapter.onTouchStart((e) => {
+    if (e.touches.length === 1) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }
+  });
+  adapter.onTouchEnd((e) => {
+    if (e.changedTouches.length === 1) {
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      const dx = endX - startX;
+      const dy = endY - startY;
+      // 垂直移动距离大于水平移动距离，且向下移动超过50px
+      if (Math.abs(dy) > Math.abs(dx) && dy > 50) {
+        callback && callback(e);
+      }
+    }
+  });
+};
+
+// 封装左滑手势
+adapter.onTouchLeft = function(callback) {
+  let startX = 0;
+  let startY = 0;
+  adapter.onTouchStart((e) => {
+    if (e.touches.length === 1) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }
+  });
+  adapter.onTouchEnd((e) => {
+    if (e.changedTouches.length === 1) {
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      const dx = endX - startX;
+      const dy = endY - startY;
+      // 水平移动距离大于垂直移动距离，且向左移动超过50px
+      if (Math.abs(dx) > Math.abs(dy) && dx < -50) {
+        callback && callback(e);
+      }
+    }
+  });
+};
+
+// 封装右滑手势
+adapter.onTouchRight = function(callback) {
+  let startX = 0;
+  let startY = 0;
+  adapter.onTouchStart((e) => {
+    if (e.touches.length === 1) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }
+  });
+  adapter.onTouchEnd((e) => {
+    if (e.changedTouches.length === 1) {
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      const dx = endX - startX;
+      const dy = endY - startY;
+      // 水平移动距离大于垂直移动距离，且向右移动超过50px
+      if (Math.abs(dx) > Math.abs(dy) && dx > 50) {
+        callback && callback(e);
+      }
+    }
+  });
+};
+
 module.exports = adapter;
